@@ -1,7 +1,66 @@
 <!DOCTYPE html>
-<head>
-  <script type="module" src="./qrcode-scanner.js"></script>
-</head>
-<body>
-  <qrcode-scanner></qrcode-scanner>
-</body>
+<html lang="en">
+ <head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="google-site-verification" content="Xs4Y8kOjxCHZvery6v-Y6yVIptmWsSjownRLWpRDDlc" />
+ <meta name="msvalidate.01" content="C21F82032619E6AE38AEC7FFE4D05827" />
+ </head>
+
+<div class="container">
+	<h2>How to use?</h2>
+	<div>
+		You can either use <code>Html5QrcodeScanner</code> which takes of end to end
+		user interface and functionality, or you can use <code>Html5Qrcode</code>
+		with your own user interface. This demo is build using <code>Html5QrcodeScanner</code>.
+	</div>
+	<div class="empty"></div>
+	<div>
+		<h4>[1] Add javascript to your webpage either using npm</h4>
+		<a href="https://www.npmjs.com/package/html5-qrcode" target="new">
+			<img src="https://nodei.co/npm/html5-qrcode.png" alt="library on npm">
+		</a><br><br>
+		Or include the <a href="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js">JavaScript script</a> directly using<br>
+		<pre style="background: none;"><code class="html">&#60;script src="html5-qrcode.min.js">&#60;/script></code></pre>.
+		<br><br>
+		<h4>[2] Add an empty div where you want to place the qrcode scanner</h4>
+		<pre style="background: none;"><code class="html">&#60;div style="width: 500px" id="reader">&#60;/div></code></pre>
+		<h4>[3] Initialize</h4>
+		<pre style="background: none;"><code class="javascript">function onScanSuccess(decodedText, decodedResult) {
+    // Handle on success condition with the decoded text or result.
+    console.log(`Scan result: ${decodedText}`, decodedResult);
+}
+var html5QrcodeScanner = new Html5QrcodeScanner(
+	"reader", { fps: 10, qrbox: 250 });
+html5QrcodeScanner.render(onScanSuccess);
+</code></pre>
+       <h4>[4] Optional - Stop scanning after the code is scanned?</h4>
+        You can use <code>Html5QrcodeScanner#clear()</code> method to stop scanning after the code is scanned. Here's an example:
+       <pre style="background: none;"><code class="javascript">var html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader", { fps: 10, qrbox: 250 });
+        
+function onScanSuccess(decodedText, decodedResult) {
+    // Handle on success condition with the decoded text or result.
+    console.log(`Scan result: ${decodedText}`, decodedResult);
+    // ...
+    html5QrcodeScanner.clear();
+    // ^ this will stop the scanner (video feed) and clear the scan area.
+}
+
+html5QrcodeScanner.render(onScanSuccess);</code></pre>
+       <h4>[5] Optional - Handle scan failure?</h4>
+        You can handle scan failure or video failure using failure callback. Here's an example:
+       <pre style="background: none;"><code class="javascript">function onScanSuccess(decodedText, decodedResult) {
+    // Handle on success condition with the decoded text or result.
+    console.log(`Scan result: ${decodedText}`, decodedResult);
+}
+
+function onScanError(errorMessage) {
+    // handle on error condition, with error message
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader", { fps: 10, qrbox: 250 });
+html5QrcodeScanner.render(onScanSuccess, onScanError);</code></pre>
+   </div>
